@@ -3,7 +3,7 @@ from models.Battle import *
 from models.Pokemon import *
 
 pokemon1 = Pokemon("Bulbasaur", 78, GRASS, POISON)
-pokemon2 = Pokemon("Charmander", 100, FIRE, None)
+pokemon2 = Pokemon("Charmander", 100, WATER, GROUND)
 
 pokemon1.current_hp = 45
 pokemon2.current_hp = 39
@@ -36,7 +36,6 @@ pokemon1.iv = {
 }
 
 pokemon1.compute_stats()
-print(pokemon1.stats)
 
 pokemon2.base_stats = {
     HP: 39,
@@ -67,7 +66,7 @@ pokemon2.iv = {
 
 
 pokemon1.attacks = [Attack("Scratch", GRASS, PHYSICAL, 10, 10, 100)]
-pokemon2.attacks = [Attack("Scratch", NORMAL, PHYSICAL, 10, 10, 100)]
+pokemon2.attacks = [Attack("Scratch", FIRE, PHYSICAL, 10, 10, 100)]
 
 
 def ask_command(pokemon): 
