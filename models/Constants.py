@@ -36,6 +36,27 @@ BUG = "Bug"
 STEEL = "Steel"
 FAIRY = "Fairy"
 
+TYPE_MAP = {
+    "Grass": GRASS,
+    "Fire": FIRE,
+    "Water": WATER,
+    "Electric": ELECTRIC,
+    "Normal": NORMAL,
+    "Psychic": PSYCHIC,
+    "Ice": ICE,
+    "Dragon": DRAGON,
+    "Dark": DARK,
+    "Ghost": GHOST,
+    "Fighting": FIGHTING,
+    "Flying": FLYING,
+    "Poison": POISON,
+    "Ground": GROUND,
+    "Rock": ROCK,
+    "Bug": BUG,
+    "Steel": STEEL,
+    "Fairy": FAIRY
+} 
+
 EFFECTIVENESS = {
     GRASS: {FIRE: 0.5, WATER: 2, ELECTRIC: 0.5, GRASS: 0.5, NORMAL: 1, PSYCHIC: 1, ICE: 1, DRAGON: 0.5, DARK: 1, GHOST: 1, FIGHTING: 1, FLYING: 0.5, POISON: 0.5, GROUND: 2, ROCK: 2, BUG: 0.5, STEEL: 0.5, FAIRY: 1},
     FIRE: {GRASS: 2, FIRE: 0.5, WATER: 0.5, ELECTRIC: 1, NORMAL: 1, PSYCHIC: 1, ICE: 2, DRAGON: 0.5, DARK: 1, GHOST: 1, FIGHTING: 1, FLYING: 1, POISON: 1, GROUND: 1, ROCK: 0.5, BUG: 2, STEEL: 2, FAIRY: 1},

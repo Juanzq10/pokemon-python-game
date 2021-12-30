@@ -1,4 +1,5 @@
 from models.Constants import * 
+import random 
 
 class Battle: 
     def __init__(self, pokemon1, pokemon2):
@@ -46,13 +47,35 @@ class Battle:
     
     def compute_damage_modifier(self, attack, pokemon1, pokemon2): 
         modifier = 1
+
+        stab = self.compute_stab(attack, pokemon1)
+        type_effectiveness = self.compute_effectiveness(attack, pokemon2)
+        critical_hit = self.compute_critical_hit()
+
+        modifier *= stab * type_effectiveness * critical_hit
+        return modifier
+    
+    def compute_stab(self, attack, pokemon1): 
         stab = 1
+
         if (attack.type == pokemon1.type1) or (attack.type == pokemon1.type2): 
             stab = 1.5
 
-        modifier *= stab
-        return modifier
+        return stab
 
+    def compute_effectiveness(self, attack, pokemon_damaged):
+        type_effectiveness = EFFECTIVENESS[attack.type][pokemon_damaged.type1]
+
+        if pokemon_damaged.type2 is not None: 
+            type_effectiveness *= EFFECTIVENESS[attack.type][pokemon_damaged.type2]
+
+        return type_effectiveness
+    
+    def compute_critical_hit(): 
+        if random.random() <= 0.1: 
+            return 1.5
+        else:
+            return 1
     
     def print_current_status(self):
         print(self.pokemon1.name + ": " + str(self.pokemon1.current_hp) + " HP")
