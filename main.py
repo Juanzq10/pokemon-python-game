@@ -1,9 +1,11 @@
 from models.Constants import * 
 from models.Battle import *
 from models.Pokemon import *
+import pygame 
+from pygame.locals import *
 
 pokemon1 = Pokemon("Bulbasaur", 78, GRASS, POISON)
-pokemon2 = Pokemon("Charmander", 100, WATER, GROUND)
+pokemon2 = Pokemon("Bulbasaur", 100, WATER, GROUND)
 
 pokemon1.current_hp = 45
 pokemon2.current_hp = 39
@@ -66,7 +68,7 @@ pokemon2.iv = {
 
 
 pokemon1.attacks = [Attack("Scratch", GRASS, PHYSICAL, 10, 10, 100)]
-pokemon2.attacks = [Attack("Scratch", FIRE, PHYSICAL, 10, 10, 100)]
+pokemon2.attacks = [Attack("Scratch", FIRE, PHYSICAL, 10, 10, 100)] 
 
 
 def ask_command(pokemon): 
@@ -83,16 +85,66 @@ def ask_command(pokemon):
                 pass 
     return command
 
-battle = Battle(pokemon1, pokemon2)
+# battle = Battle(pokemon1, pokemon2)
 
-while not battle.is_finished(): 
-    command1 = ask_command(pokemon1)
-    command2 = ask_command(pokemon2)
+# while not battle.is_finished(): 
+#     command1 = ask_command(pokemon1)
+#     command2 = ask_command(pokemon2)
 
-    turn = Turn()
-    turn.command1 = command1
-    turn.command2 = command2
+#     turn = Turn()
+#     turn.command1 = command1
+#     turn.command2 = command2
 
-    if turn.can_start(): 
-        battle.execute_turn(turn)
-        battle.print_current_status()
+#     if turn.can_start(): 
+#         battle.execute_turn(turn)
+#         battle.print_current_status()
+
+def load_resources(): 
+    load_pokemon_image(pokemon1, True)
+    load_pokemon_image(pokemon2, False)
+
+def load_pokemon_image(pokemon, is_player):
+    pokemon_name = pokemon.name.lower()
+
+    if is_player: 
+        pokemon_img = pygame.image.load("resources/pokemon/" + pokemon_name + "_back.png")
+    else: 
+        pokemon_img = pygame.image.load("resources/pokemon/" + pokemon_name + "_front.png")
+    
+    pokemon_img = pygame.transform.scale(pokemon_img, (400, 400))
+    
+    pokemon.renderer = pokemon_img
+
+
+def render(screen):
+    screen.fill((255, 255, 255))
+    render_pokemon(screen, pokemon1, pokemon2)
+    pygame.display.update()
+
+def render_pokemon(screen, pokemon1, pokemon2):
+    pokemon1.render(screen, (0, 200))
+    pokemon2.render(screen, (400, -50))
+
+def update(): 
+    pass
+
+def main(): 
+    pygame.init()
+    screen = pygame.display.set_mode((800, 600))
+    load_resources()
+    pygame.display.set_caption("Pokemon Battle")
+
+    clock = pygame.time.Clock()
+    clock.tick(60)
+    
+    stopped = False
+
+    while not stopped: 
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                stopped = True
+
+        render(screen)
+
+if __name__ == "__main__":
+    main()
